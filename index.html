@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO Meta Tags -->
+  <title>Online Keyboard Test & Keyboard Checker Utility | Laptop & Mechanical Key Tester</title>
+  <meta name="title" content="Online Keyboard Test & Keyboard Checker Utility | Laptop & Mechanical Key Tester">
+  <meta name="description" content="Free online keyboard test and keyboard checker utility. Test laptop, desktop, mechanical keyboards, N-key rollover ghosting, key speed, and typing performance instantly online.">
+  <meta name="keywords" content="online keyboard test, test keyboard online, keyboard tester, keyboard checker, keyboard test utility, laptop keyboard test, keyboard ghosting test, typing keyboard test">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mic-testpro.vercel.app/">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mic-testpro.vercel.app/">
+  <meta property="og:title" content="Online Keyboard Test & Keyboard Checker Utility">
+  <meta property="og:description" content="Check laptop and mechanical keyboard keys online. Live key response, ghosting test, sound effects, and typing speed analyzer.">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Online Keyboard Test & Keyboard Checker Utility">
+  <meta property="twitter:description" content="Test your laptop or mechanical keyboard online. Instant ghosting test, key response, and typing analyzer.">
+
+  <!-- JSON-LD Structured Data for Google Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Online Keyboard Test Utility & Keyboard Checker",
+    "url": "https://mic-testpro.vercel.app/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "An interactive online keyboard tester and keyboard checker utility to test laptop keyboards, mechanical switches, key ghosting rollover, and typing speed."
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --card-bg: #111827;
+      --border-color: #1f2937;
+      --accent-glow: #38bdf8;
+      --key-bg: #1f2937;
+      --key-hover: #374151;
+      --key-active: #f59e0b;
+      --key-tested: #10b981;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 1rem;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 0.8rem;
+      max-width: 800px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      color: var(--accent-glow);
+      margin-bottom: 0.3rem;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+    }
+
+    /* Promo Banner with Microphone Icon & Updated Link */
+    .promo-banner {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid #334155;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .promo-banner a {
+      color: var(--accent-glow);
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .promo-banner a:hover {
+      text-decoration: underline;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 1000px;
+    }
+
+    .btn-group {
+      display: flex;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .layout-btn, .action-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.5rem 0.8rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .layout-btn.active, .action-btn:hover {
+      background: var(--accent-glow);
+      color: #0b0f19;
+    }
+
+    .action-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-main);
+    }
+
+    /* Stats Dashboard */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 0.5rem;
+      width: 100%;
+      max-width: 1000px;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 0.6rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stat-card .label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-card .value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-glow);
+      margin-top: 0.2rem;
+    }
+
+    /* Responsive Keyboard Wrapper Scaling */
+    .keyboard-container {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .keyboard-wrapper {
+      background: var(--card-bg);
+      padding: 0.8rem;
+      border-radius: 12px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-color);
+      display: none;
+      flex-direction: column;
+      gap: 0.35rem;
+      width: 100%;
+      transform-origin: top center;
+    }
+
+    .keyboard-wrapper.active {
+      display: flex;
+    }
+
+    .row {
+      display: flex;
+      gap: 0.25rem;
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .key {
+      background-color: var(--key-bg);
+      color: var(--text-main);
+      height: 40px;
+      flex: 1;
+      min-width: 0;
+      padding: 0 2px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      user-select: none;
+      transition: background-color 0.08s, transform 0.05s, box-shadow 0.08s;
+      border-bottom: 3px solid #0f172a;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .key.active {
+      background-color: var(--key-active) !important;
+      color: #0b0f19;
+      transform: translateY(2px);
+      border-bottom-width: 1px;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+    }
+
+    .key.tested {
+      background-color: var(--key-tested);
+      color: #0b0f19;
+      border-bottom-color: #047857;
+    }
+
+    /* Proportional Flex Ratios for Responsive Fit */
+    .w-1-25 { flex: 1.25; }
+    .w-1-5  { flex: 1.5; }
+    .w-1-75 { flex: 1.75; }
+    .w-2    { flex: 2; }
+    .w-2-25 { flex: 2.25; }
+    .w-2-75 { flex: 2.75; }
+    .w-3    { flex: 3; }
+    .w-6    { flex: 6; }
+    .spacer { background: transparent; border: none; box-shadow: none; pointer-events: none; }
+
+    .footer-actions {
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    /* SEO Content Section */
+    .seo-content {
+      max-width: 1000px;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      margin-top: 1rem;
+      color: #d1d5db;
+      line-height: 1.6;
+    }
+
+    .seo-content h2 {
+      color: var(--accent-glow);
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .seo-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .seo-content p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .seo-content ul {
+      margin-left: 1.2rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Online Keyboard Test & Keyboard Checker</h1>
+    <p class="subtitle">Free online keyboard test utility to check laptop keyboards, desktop setups, mechanical switches, and key ghosting rollover.</p>
+  </header>
+
+  <!-- Updated Promo Banner with Microphone Icon & Correct URL -->
+  <div class="promo-banner">
+    🎙️ Need to test your audio? Try our <a href="https://mic-testpro.vercel.app/" target="_blank">Online Mic Test Utility 🎤</a>
+  </div>
+
+  <!-- Layout Controls -->
+  <div class="controls-bar">
+    <div class="btn-group">
+      <button class="layout-btn active" data-layout="full">Full Size (108 Keys)</button>
+      <button class="layout-btn" data-layout="tkl">Tenkeyless (TKL)</button>
+      <button class="layout-btn" data-layout="laptop">Laptop Keyboard (HP/Dell)</button>
+    </div>
+    <button class="action-btn" id="sound-toggle">🔊 Sound: ON</button>
+    <button class="action-btn" id="reset-btn" style="background: #ef4444; color: white; border: none;">Reset Test</button>
+  </div>
+
+  <!-- Stats Dashboard -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="label">Last Key Pressed</div>
+      <div class="value" id="last-key">None</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Key Code</div>
+      <div class="value" id="last-code" style="font-size: 0.9rem;">None</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Active Rollover</div>
+      <div class="value" id="active-count">0 Keys</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Max Ghosting Count</div>
+      <div class="value" id="max-rollover">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Typing Speed</div>
+      <div class="value" id="wpm-stat">0 WPM</div>
+    </div>
+  </div>
+
+  <div class="keyboard-container">
+    <!-- 1. FULL SIZE LAYOUT -->
+    <div class="keyboard-wrapper active" id="layout-full">
+      <div class="row">
+        <div class="key" data-code="Escape">Esc</div>
+        <div class="key spacer" style="flex:0.5"></div>
+        <div class="key" data-code="F1">F1</div>
+        <div class="key" data-code="F2">F2</div>
+        <div class="key" data-code="F3">F3</div>
+        <div class="key" data-code="F4">F4</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="F5">F5</div>
+        <div class="key" data-code="F6">F6</div>
+        <div class="key" data-code="F7">F7</div>
+        <div class="key" data-code="F8">F8</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="F9">F9</div>
+        <div class="key" data-code="F10">F10</div>
+        <div class="key" data-code="F11">F11</div>
+        <div class="key" data-code="F12">F12</div>
+        <div class="key spacer" style="flex:0.5"></div>
+        <div class="key" data-code="PrintScreen">PrtSc</div>
+        <div class="key" data-code="ScrollLock">ScrLk</div>
+        <div class="key" data-code="Pause">Pause</div>
+      </div>
+      <div class="row">
+        <div class="key" data-code="Backquote">`</div>
+        <div class="key" data-code="Digit1">1</div>
+        <div class="key" data-code="Digit2">2</div>
+        <div class="key" data-code="Digit3">3</div>
+        <div class="key" data-code="Digit4">4</div>
+        <div class="key" data-code="Digit5">5</div>
+        <div class="key" data-code="Digit6">6</div>
+        <div class="key" data-code="Digit7">7</div>
+        <div class="key" data-code="Digit8">8</div>
+        <div class="key" data-code="Digit9">9</div>
+        <div class="key" data-code="Digit0">0</div>
+        <div class="key" data-code="Minus">-</div>
+        <div class="key" data-code="Equal">=</div>
+        <div class="key w-2" data-code="Backspace">Backspace</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="Insert">Ins</div>
+        <div class="key" data-code="Home">Home</div>
+        <div class="key" data-code="PageUp">PgUp</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="NumLock">Num</div>
+        <div class="key" data-code="NumpadDivide">/</div>
+        <div class="key" data-code="NumpadMultiply">*</div>
+        <div class="key" data-code="NumpadSubtract">-</div>
+      </div>
+      <div class="row">
+        <div class="key w-1-5" data-code="Tab">Tab</div>
+        <div class="key" data-code="KeyQ">Q</div>
+        <div class="key" data-code="KeyW">W</div>
+        <div class="key" data-code="KeyE">E</div>
+        <div class="key" data-code="KeyR">R</div>
+        <div class="key" data-code="KeyT">T</div>
+        <div class="key" data-code="KeyY">Y</div>
+        <div class="key" data-code="KeyU">U</div>
+        <div class="key" data-code="KeyI">I</div>
+        <div class="key" data-code="KeyO">O</div>
+        <div class="key" data-code="KeyP">P</div>
+        <div class="key" data-code="BracketLeft">[</div>
+        <div class="key" data-code="BracketRight">]</div>
+        <div class="key w-1-5" data-code="Backslash">\</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="Delete">Del</div>
+        <div class="key" data-code="End">End</div>
+        <div class="key" data-code="PageDown">PgDn</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="Numpad7">7</div>
+        <div class="key" data-code="Numpad8">8</div>
+        <div class="key" data-code="Numpad9">9</div>
+        <div class="key" data-code="NumpadAdd" style="height: 84px;">+</div>
+      </div>
+      <div class="row">
+        <div class="key w-1-75" data-code="CapsLock">Caps</div>
+        <div class="key" data-code="KeyA">A</div>
+        <div class="key" data-code="KeyS">S</div>
+        <div class="key" data-code="KeyD">D</div>
+        <div class="key" data-code="KeyF">F</div>
+        <div class="key" data-code="KeyG">G</div>
+        <div class="key" data-code="KeyH">H</div>
+        <div class="key" data-code="KeyJ">J</div>
+        <div class="key" data-code="KeyK">K</div>
+        <div class="key" data-code="KeyL">L</div>
+        <div class="key" data-code="Semicolon">;</div>
+        <div class="key" data-code="Quote">'</div>
+        <div class="key w-2-25" data-code="Enter">Enter</div>
+        <div class="key spacer" style="flex:3.6"></div>
+        <div class="key" data-code="Numpad4">4</div>
+        <div class="key" data-code="Numpad5">5</div>
+        <div class="key" data-code="Numpad6">6</div>
+      </div>
+      <div class="row">
+        <div class="key w-2-25" data-code="ShiftLeft">Shift</div>
+        <div class="key" data-code="KeyZ">Z</div>
+        <div class="key" data-code="KeyX">X</div>
+        <div class="key" data-code="KeyC">C</div>
+        <div class="key" data-code="KeyV">V</div>
+        <div class="key" data-code="KeyB">B</div>
+        <div class="key" data-code="KeyN">N</div>
+        <div class="key" data-code="KeyM">M</div>
+        <div class="key" data-code="Comma">,</div>
+        <div class="key" data-code="Period">.</div>
+        <div class="key" data-code="Slash">/</div>
+        <div class="key w-2-75" data-code="ShiftRight">Shift</div>
+        <div class="key spacer" style="flex:1.5"></div>
+        <div class="key" data-code="ArrowUp">↑</div>
+        <div class="key spacer" style="flex:1.5"></div>
+        <div class="key" data-code="Numpad1">1</div>
+        <div class="key" data-code="Numpad2">2</div>
+        <div class="key" data-code="Numpad3">3</div>
+        <div class="key" data-code="NumpadEnter" style="height: 84px;">Ent</div>
+      </div>
+      <div class="row">
+        <div class="key w-1-25" data-code="ControlLeft">Ctrl</div>
+        <div class="key w-1-25" data-code="MetaLeft">Win</div>
+        <div class="key w-1-25" data-code="AltLeft">Alt</div>
+        <div class="key w-6" data-code="Space">Space</div>
+        <div class="key w-1-25" data-code="AltRight">Alt</div>
+        <div class="key w-1-25" data-code="MetaRight">Win</div>
+        <div class="key w-1-25" data-code="ContextMenu">Menu</div>
+        <div class="key w-1-25" data-code="ControlRight">Ctrl</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="ArrowLeft">←</div>
+        <div class="key" data-code="ArrowDown">↓</div>
+        <div class="key" data-code="ArrowRight">→</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key w-2" data-code="Numpad0">0</div>
+        <div class="key" data-code="NumpadDecimal">.</div>
+      </div>
+    </div>
+
+    <!-- 2. TKL LAYOUT -->
+    <div class="keyboard-wrapper" id="layout-tkl">
+      <div class="row">
+        <div class="key" data-code="Escape">Esc</div>
+        <div class="key spacer" style="flex:0.5"></div>
+        <div class="key" data-code="F1">F1</div>
+        <div class="key" data-code="F2">F2</div>
+        <div class="key" data-code="F3">F3</div>
+        <div class="key" data-code="F4">F4</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="F5">F5</div>
+        <div class="key" data-code="F6">F6</div>
+        <div class="key" data-code="F7">F7</div>
+        <div class="key" data-code="F8">F8</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="F9">F9</div>
+        <div class="key" data-code="F10">F10</div>
+        <div class="key" data-code="F11">F11</div>
+        <div class="key" data-code="F12">F12</div>
+        <div class="key spacer" style="flex:0.5"></div>
+        <div class="key" data-code="PrintScreen">PrtSc</div>
+        <div class="key" data-code="ScrollLock">ScrLk</div>
+        <div class="key" data-code="Pause">Pause</div>
+      </div>
+      <div class="row">
+        <div class="key" data-code="Backquote">`</div>
+        <div class="key" data-code="Digit1">1</div>
+        <div class="key" data-code="Digit2">2</div>
+        <div class="key" data-code="Digit3">3</div>
+        <div class="key" data-code="Digit4">4</div>
+        <div class="key" data-code="Digit5">5</div>
+        <div class="key" data-code="Digit6">6</div>
+        <div class="key" data-code="Digit7">7</div>
+        <div class="key" data-code="Digit8">8</div>
+        <div class="key" data-code="Digit9">9</div>
+        <div class="key" data-code="Digit0">0</div>
+        <div class="key" data-code="Minus">-</div>
+        <div class="key" data-code="Equal">=</div>
+        <div class="key w-2" data-code="Backspace">Backspace</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="Insert">Ins</div>
+        <div class="key" data-code="Home">Home</div>
+        <div class="key" data-code="PageUp">PgUp</div>
+      </div>
+      <div class="row">
+        <div class="key w-1-5" data-code="Tab">Tab</div>
+        <div class="key" data-code="KeyQ">Q</div>
+        <div class="key" data-code="KeyW">W</div>
+        <div class="key" data-code="KeyE">E</div>
+        <div class="key" data-code="KeyR">R</div>
+        <div class="key" data-code="KeyT">T</div>
+        <div class="key" data-code="KeyY">Y</div>
+        <div class="key" data-code="KeyU">U</div>
+        <div class="key" data-code="KeyI">I</div>
+        <div class="key" data-code="KeyO">O</div>
+        <div class="key" data-code="KeyP">P</div>
+        <div class="key" data-code="BracketLeft">[</div>
+        <div class="key" data-code="BracketRight">]</div>
+        <div class="key w-1-5" data-code="Backslash">\</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="Delete">Del</div>
+        <div class="key" data-code="End">End</div>
+        <div class="key" data-code="PageDown">PgDn</div>
+      </div>
+      <div class="row">
+        <div class="key w-1-75" data-code="CapsLock">Caps</div>
+        <div class="key" data-code="KeyA">A</div>
+        <div class="key" data-code="KeyS">S</div>
+        <div class="key" data-code="KeyD">D</div>
+        <div class="key" data-code="KeyF">F</div>
+        <div class="key" data-code="KeyG">G</div>
+        <div class="key" data-code="KeyH">H</div>
+        <div class="key" data-code="KeyJ">J</div>
+        <div class="key" data-code="KeyK">K</div>
+        <div class="key" data-code="KeyL">L</div>
+        <div class="key" data-code="Semicolon">;</div>
+        <div class="key" data-code="Quote">'</div>
+        <div class="key w-2-25" data-code="Enter">Enter</div>
+      </div>
+      <div class="row">
+        <div class="key w-2-25" data-code="ShiftLeft">Shift</div>
+        <div class="key" data-code="KeyZ">Z</div>
+        <div class="key" data-code="KeyX">X</div>
+        <div class="key" data-code="KeyC">C</div>
+        <div class="key" data-code="KeyV">V</div>
+        <div class="key" data-code="KeyB">B</div>
+        <div class="key" data-code="KeyN">N</div>
+        <div class="key" data-code="KeyM">M</div>
+        <div class="key" data-code="Comma">,</div>
+        <div class="key" data-code="Period">.</div>
+        <div class="key" data-code="Slash">/</div>
+        <div class="key w-2-75" data-code="ShiftRight">Shift</div>
+        <div class="key spacer" style="flex:1.5"></div>
+        <div class="key" data-code="ArrowUp">↑</div>
+      </div>
+      <div class="row">
+        <div class="key w-1-25" data-code="ControlLeft">Ctrl</div>
+        <div class="key w-1-25" data-code="MetaLeft">Win</div>
+        <div class="key w-1-25" data-code="AltLeft">Alt</div>
+        <div class="key w-6" data-code="Space">Space</div>
+        <div class="key w-1-25" data-code="AltRight">Alt</div>
+        <div class="key w-1-25" data-code="MetaRight">Win</div>
+        <div class="key w-1-25" data-code="ControlRight">Ctrl</div>
+        <div class="key spacer" style="flex:0.3"></div>
+        <div class="key" data-code="ArrowLeft">←</div>
+        <div class="key" data-code="ArrowDown">↓</div>
+        <div class="key" data-code="ArrowRight">→</div>
+      </div>
+    </div>
+
+    <!-- 3. LAPTOP LAYOUT -->
+    <div class="keyboard-wrapper" id="layout-laptop">
+      <div class="row">
+        <div class="key" data-code="Escape">Esc</div>
+        <div class="key" data-code="F1">F1</div>
+        <div class="key" data-code="F2">F2</div>
+        <div class="key" data-code="F3">F3</div>
+        <div class="key" data-code="F4">F4</div>
+        <div class="key" data-code="F5">F5</div>
+        <div class="key" data-code="F6">F6</div>
+        <div class="key" data-code="F7">F7</div>
+        <div class="key" data-code="F8">F8</div>
+        <div class="key" data-code="F9">F9</div>
+        <div class="key" data-code="F10">F10</div>
+        <div class="key" data-code="F11">F11</div>
+        <div class="key" data-code="F12">F12</div>
+        <div class="key" data-code="Insert">Ins</div>
+        <div class="key" data-code="Delete">Del</div>
+        <div class="key" data-code="Power">Pwr</div>
+      </div>
+      <div class="row">
+        <div class="key" data-code="Backquote">`</div>
+        <div class="key" data-code="Digit1">1</div>
+        <div class="key" data-code="Digit2">2</div>
+        <div class="key" data-code="Digit3">3</div>
+        <div class="key" data-code="Digit4">4</div>
+        <div class="key" data-code="Digit5">5</div>
+        <div class="key" data-code="Digit6">6</div>
+        <div class="key" data-code="Digit7">7</div>
+        <div class="key" data-code="Digit8">8</div>
+        <div class="key" data-code="Digit9">9</div>
+        <div class="key" data-code="Digit0">0</div>
+        <div class="key" data-code="Minus">-</div>
+        <div class="key" data-code="Equal">=</div>
+        <div class="key w-2" data-code="Backspace">Backspace</div>
+      </div>
+      <div class="row">
+        <div class="key w-1-5" data-code="Tab">Tab</div>
+        <div class="key" data-code="KeyQ">Q</div>
+        <div class="key" data-code="KeyW">W</div>
+        <div class="key" data-code="KeyE">E</div>
+        <div class="key" data-code="KeyR">R</div>
+        <div class="key" data-code="KeyT">T</div>
+        <div class="key" data-code="KeyY">Y</div>
+        <div class="key" data-code="KeyU">U</div>
+        <div class="key" data-code="KeyI">I</div>
+        <div class="key" data-code="KeyO">O</div>
+        <div class="key" data-code="KeyP">P</div>
+        <div class="key" data-code="BracketLeft">[</div>
+        <div class="key" data-code="BracketRight">]</div>
+        <div class="key w-1-5" data-code="Backslash">\</div>
+      </div>
+      <div class="row">
+        <div class="key w-1-75" data-code="CapsLock">Caps</div>
+        <div class="key" data-code="KeyA">A</div>
+        <div class="key" data-code="KeyS">S</div>
+        <div class="key" data-code="KeyD">D</div>
+        <div class="key" data-code="KeyF">F</div>
+        <div class="key" data-code="KeyG">G</div>
+        <div class="key" data-code="KeyH">H</div>
+        <div class="key" data-code="KeyJ">J</div>
+        <div class="key" data-code="KeyK">K</div>
+        <div class="key" data-code="KeyL">L</div>
+        <div class="key" data-code="Semicolon">;</div>
+        <div class="key" data-code="Quote">'</div>
+        <div class="key w-2-25" data-code="Enter">Enter</div>
+      </div>
+      <div class="row">
+        <div class="key w-2-25" data-code="ShiftLeft">Shift</div>
+        <div class="key" data-code="KeyZ">Z</div>
+        <div class="key" data-code="KeyX">X</div>
+        <div class="key" data-code="KeyC">C</div>
+        <div class="key" data-code="KeyV">V</div>
+        <div class="key" data-code="KeyB">B</div>
+        <div class="key" data-code="KeyN">N</div>
+        <div class="key" data-code="KeyM">M</div>
+        <div class="key" data-code="Comma">,</div>
+        <div class="key" data-code="Period">.</div>
+        <div class="key" data-code="Slash">/</div>
+        <div class="key w-2-75" data-code="ShiftRight">Shift</div>
+      </div>
+      <div class="row">
+        <div class="key w-1-25" data-code="ControlLeft">Ctrl</div>
+        <div class="key w-1-25" data-code="Fn">Fn</div>
+        <div class="key w-1-25" data-code="MetaLeft">Win</div>
+        <div class="key w-1-25" data-code="AltLeft">Alt</div>
+        <div class="key w-6" data-code="Space">Space</div>
+        <div class="key w-1-25" data-code="AltRight">Alt</div>
+        <div class="key w-1-25" data-code="ControlRight">Ctrl</div>
+        <div class="key" data-code="ArrowLeft">←</div>
+        <div class="key" data-code="ArrowUp">↑</div>
+        <div class="key" data-code="ArrowDown">↓</div>
+        <div class="key" data-code="ArrowRight">→</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-actions">
+    <button class="action-btn" id="clear-tested-btn">Clear Tested Keys</button>
+  </div>
+
+  <!-- SEO Content Section -->
+  <section class="seo-content">
+    <h2>How to Test Your Keyboard Online</h2>
+    <p>Our free online keyboard test utility allows you to instantly check every key on your laptop or desktop computer keyboard without downloading any software. Simply press any key to test hardware responsiveness, sticky switches, and key mapping.</p>
+
+    <h2>Key Ghosting & N-Key Rollover (NKRO) Test</h2>
+    <p>Keyboard ghosting happens when certain key combinations fail to register when multiple keys are pressed at the exact same time. Use our active rollover counter to test your gaming keyboard for multi-key anti-ghosting capabilities.</p>
+
+    <h2>Compatible Laptop & Mechanical Keyboard Layouts</h2>
+    <ul>
+      <li><strong>Standard Laptop Keyboards:</strong> Dell, HP, Lenovo, ASUS, Acer, and Apple MacBooks.</li>
+      <li><strong>Desktop & Mechanical Switches:</strong> Full-Size (108 keys) and Tenkeyless (TKL) layouts with Cherry MX, Gateron, or custom mechanical switches.</li>
+    </ul>
+  </section>
+
+  <script>
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function playClickSound() {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(180, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.04);
+        
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.04);
+      } catch (e) {}
+    }
+
+    const activeKeys = new Set();
+    let maxRollover = 0;
+    let charCount = 0;
+    let startTime = null;
+
+    const lastKeyEl = document.getElementById('last-key');
+    const lastCodeEl = document.getElementById('last-code');
+    const activeCountEl = document.getElementById('active-count');
+    const maxRolloverEl = document.getElementById('max-rollover');
+    const wpmEl = document.getElementById('wpm-stat');
+    const soundToggleBtn = document.getElementById('sound-toggle');
+
+    const layoutBtns = document.querySelectorAll('.layout-btn');
+    const wrappers = document.querySelectorAll('.keyboard-wrapper');
+
+    layoutBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        layoutBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const targetLayout = btn.getAttribute('data-layout');
+        wrappers.forEach(w => w.classList.remove('active'));
+        document.getElementById(`layout-${targetLayout}`).classList.add('active');
+      });
+    });
+
+    soundToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggleBtn.textContent = soundEnabled ? "🔊 Sound: ON" : "🔇 Sound: OFF";
+    });
+
+    window.addEventListener('keydown', (e) => {
+      e.preventDefault();
+      const code = e.code;
+      
+      if (!startTime) startTime = new Date();
+      charCount++;
+
+      if (!activeKeys.has(code)) {
+        activeKeys.add(code);
+        playClickSound();
+      }
+
+      if (activeKeys.size > maxRollover) {
+        maxRollover = activeKeys.size;
+        maxRolloverEl.textContent = maxRollover;
+      }
+
+      activeCountEl.textContent = `${activeKeys.size} Keys`;
+      lastKeyEl.textContent = e.key === ' ' ? 'Space' : e.key;
+      lastCodeEl.textContent = code;
+
+      document.querySelectorAll(`.key[data-code="${code}"]`).forEach(el => {
+        el.classList.add('active');
+        el.classList.add('tested');
+      });
+
+      updateWPM();
+    });
+
+    window.addEventListener('keyup', (e) => {
+      const code = e.code;
+      activeKeys.delete(code);
+      activeCountEl.textContent = `${activeKeys.size} Keys`;
+
+      document.querySelectorAll(`.key[data-code="${code}"]`).forEach(el => {
+        el.classList.remove('active');
+      });
+    });
+
+    function updateWPM() {
+      if (!startTime) return;
+      const elapsedMinutes = (new Date() - startTime) / 60000;
+      if (elapsedMinutes > 0) {
+        const wpm = Math.round((charCount / 5) / elapsedMinutes);
+        wpmEl.textContent = `${wpm} WPM`;
+      }
+    }
+
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      document.querySelectorAll('.key').forEach(key => {
+        key.classList.remove('active', 'tested');
+      });
+      activeKeys.clear();
+      maxRollover = 0;
+      charCount = 0;
+      startTime = null;
+      lastKeyEl.textContent = 'None';
+      lastCodeEl.textContent = 'None';
+      activeCountEl.textContent = '0 Keys';
+      maxRolloverEl.textContent = '0';
+      wpmEl.textContent = '0 WPM';
+    });
+
+    document.getElementById('clear-tested-btn').addEventListener('click', () => {
+      document.querySelectorAll('.key').forEach(key => {
+        key.classList.remove('tested');
+      });
+    });
+  </script>
+</body>
+</html>
