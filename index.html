@@ -40,8 +40,10 @@
     "description": "An interactive online keyboard tester and keyboard checker utility to test laptop keyboards, mechanical switches, key ghosting rollover, and typing speed."
   }
   </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8537779348532569"
-     crossorigin="anonymous"></script>
+
+  <!-- Google AdSense Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8537779348532569" crossorigin="anonymous"></script>
+
   <style>
     :root {
       --bg-color: #0b0f19;
@@ -93,27 +95,31 @@
       margin-bottom: 0.6rem;
     }
 
-    /* Promo Banner with Microphone Icon & Updated Link */
+    /* Cross-Promo Banners */
+    .promo-bar {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
     .promo-banner {
       background: linear-gradient(135deg, #1e293b, #0f172a);
       border: 1px solid #334155;
-      padding: 0.6rem 1.2rem;
+      padding: 0.5rem 1rem;
       border-radius: 8px;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
     .promo-banner a {
       color: var(--accent-glow);
       text-decoration: none;
       font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
     }
     .promo-banner a:hover {
       text-decoration: underline;
@@ -323,9 +329,14 @@
     <p class="subtitle">Free online keyboard test utility to check laptop keyboards, desktop setups, mechanical switches, and key ghosting rollover.</p>
   </header>
 
-  <!-- Updated Promo Banner with Microphone Icon & Correct URL -->
-  <div class="promo-banner">
-    🎙️ Need to test your audio? Try our <a href="https://mic-testpro.vercel.app/" target="_blank">Online Mic Test Utility 🎤</a>
+  <!-- Cross Promotion Links -->
+  <div class="promo-bar">
+    <div class="promo-banner">
+      🎙️ <a href="https://mic-testpro.vercel.app/" target="_blank">Online Mic Test Utility 🎤</a>
+    </div>
+    <div class="promo-banner">
+      🖥️ <a href="https://screentestpropro.vercel.app/" target="_blank">Screen Test & Dead Pixel Checker 🖥️</a>
+    </div>
   </div>
 
   <!-- Layout Controls -->
